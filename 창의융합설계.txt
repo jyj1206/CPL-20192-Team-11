@@ -1,2 +1,5 @@
-콘솔창 크기
+콘솔창 크기, 폰트 색
 http://egloos.zum.com/EireneHue/v/350607
+
+콘솔창 이동(gotoxy)
+https://m.blog.naver.com/PostView.nhn?blogId=3th_october&logNo=140166614423&proxyReferer=https%3A%2F%2Fwww.google.com%2F
