@@ -1,0 +1,32 @@
+//텍스트 시간
+
+#include <stdio.h>
+#include <time.h>
+#include <Windows.h>
+
+#define DAY_OF_WEEK_SIZE 7
+
+const static char* DAY_OF_WEEK[DAY_OF_WEEK_SIZE] = {
+	" Sun ", " Mon ", " Tue ", " Wed ", " Thu ", " Fri ", " Sat "
+};
+
+int main()
+{
+	while(1)
+	{
+		time_t now = time(NULL);
+		struct tm* time = localtime(&now);
+		
+		int year = time->tm_year + 1900;
+		int month = time->tm_mon + 1;
+		int dayOfMonth = time->tm_mday;
+		int dayOfWeek = time->tm_wday;
+		int hour = time->tm_hour;
+		int minute = time->tm_min;
+		int second = time->tm_sec;
+	
+		printf("%d-%d-%d [%s] %d:%d:%d\n", year, month, dayOfMonth, DAY_OF_WEEK[dayOfWeek], hour, minute, second);
+		system("cls");
+	}
+	return 0;
+}
