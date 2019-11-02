@@ -8,6 +8,39 @@
 
 #define DAY_OF_WEEK_SIZE 7
 
+#define MAX_STACK
+
+#define MALLOC(a,b) a = (menuPointer)malloc(b)
+
+#define mainM 0
+
+
+HANDLE COUT = 0;    // 콘솔 출력 장치
+HANDLE CIN = 0;        // 콘솔 입력 장치
+
+int event;        // 마우스 이벤트에 이용
+int x;            // 마우스의 x좌표 저장소
+int y;            // 마우스의 y좌표 저장소
+
+typedef struct node *menuPointer;
+typedef struct node {
+	int pre_menu;
+	menuPointer link;
+}node;
+menuPointer menu[MAX_STACK];
+
+int top = -1;
+
+
+
+int be_input();
+
+int get_input(WORD *vkey, COORD *pos);
+
+void gotoxy(int x, int y);      // 좌표 보내기 gotoxy
+
+
+
 
 
 void title();  // 초기 메인 메뉴 함수
@@ -54,8 +87,6 @@ void CursorView(char show)//커서숨기기
 
 void textcolor(int color_number)
 
-
-
 {
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
@@ -70,6 +101,8 @@ void main()
 
 	title();
 
+
+
 }
 
 
@@ -80,6 +113,7 @@ void main()
 
 void title()
 {
+
 	CursorView(0);
 
 	textcolor(11);
@@ -108,11 +142,11 @@ void title()
 
 	printf("\n");
 
-	printf("                  이름 :					         \n");
+	printf("               이름 : |              |	         \n");
 
-	printf("                  학번 :						     \n");
+	printf("               학번 : |              |	         \n");
 
-	printf("                    키 :					         \n");
+	printf("                 키 : |              |           \n");
 
 	printf("\n");
 
@@ -128,18 +162,49 @@ void title()
 
 	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
 
-	
+	DWORD mode;
+	WORD key;
+	COORD pos;
+
+	CIN = GetStdHandle(STD_INPUT_HANDLE);
+	COUT = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	// 마우스 활성화
+	GetConsoleMode(CIN, &mode);
+	SetConsoleMode(CIN, mode | ENABLE_MOUSE_INPUT);
 
 
 	while (1) {
 
+		
 
-		COORD pos = { 0, 24 };
+			if (be_input())
+			{
+				if (get_input(&key, &pos) != 0)
+				{
+					MOUSE_EVENT;
+					x = pos.X;    // 마우스클릭값이 x,y변수에 저장되도록함
+					y = pos.Y;
+					gotoxy(x, y);
+					printf("%d %d", x, y);
 
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+					
 
 
-		timeset();
+
+
+					
+				}
+			}
+		
+
+			COORD pos = { 0, 24 };
+
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+
+
+		timeset(); //문제는 시간을 바꾸려면 시간을 표시하는 줄에 커서가 가 있어야 하는데 정보 입력은 우야노
 
 	}
 
@@ -177,3 +242,49 @@ void timeset()
 	printf("%d-%d-%d [%s] %d:%d:%d\n", year, month, dayOfMonth, DAY_OF_WEEK[dayOfWeek], hour, minute, second);
 
 }
+
+
+int be_input()
+{
+	INPUT_RECORD input_record;
+	DWORD input_count;
+
+	PeekConsoleInput(CIN, &input_record, 1, &input_count);
+	return input_count;
+}
+
+int get_input(WORD *vkey, COORD *pos)
+{
+	INPUT_RECORD input_record;
+	DWORD input_count;
+
+	ReadConsoleInput(CIN, &input_record, 1, &input_count);
+	switch (input_record.EventType) {
+	case MOUSE_EVENT:
+		if (pos && (input_record.Event.MouseEvent.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)) {
+			CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+			GetConsoleScreenBufferInfo(COUT, &csbi);
+
+			*pos = input_record.Event.MouseEvent.dwMousePosition;
+			pos->X -= csbi.srWindow.Left;
+			pos->Y -= csbi.srWindow.Top;
+
+			return MOUSE_EVENT;
+		}
+		break;
+
+	}
+
+	//    FlushConsoleInputBuffer(CIN);
+	return 0;
+}
+
+void gotoxy(int x, int y)      // 좌표 보내기 gotoxy
+{
+	COORD Cur;
+	Cur.X = x;
+	Cur.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
+}
+
