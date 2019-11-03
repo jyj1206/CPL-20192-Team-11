@@ -1,0 +1,24 @@
+int mousescope(int x1, int x2, int y1, int y2);
+
+
+
+if(mousescope(x1, x2, y1, y2)){
+	menux = manager2;
+	return;
+}
+
+
+
+
+
+int mousescope(int x1, int x2, int y1, int y2)
+{
+
+	if(x >= x1 && x <= x2)
+		if (y >= y1 && y <= y2) {
+
+			return TRUE;
+
+		}
+
+}
