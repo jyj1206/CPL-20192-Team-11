@@ -1,14 +1,105 @@
-int mousescope(int x1, int x2, int y1, int y2);
 
-
-
-if(mousescope(x1, x2, y1, y2)){
-	menux = manager2;
-	return;
+//메인 함수 선언
+int main(void)
+{
+	while (1) {
+		system("cls");
+		switch (menux) {
+		case 0: title();
+			break;
+		case 1: manager();
+			break;
+		case 2: manager_1();
+			break;
+		case 3: manager_2();
+			break;
+		case 4: user();
+		}
+	}
 }
 
 
+int mousescope(int x1, int x2, int y1, int y2);
 
+
+void manager() {
+
+	CursorView(0);
+		
+	system("mode con cols=50 lines=30");
+
+	textcolor(11);
+
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf("                  - 관리자 모드 -                 \n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf("           원하시는 작업을 선택해 주세요          \n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf("                 =================                \n");
+
+	printf("                   학생 정보 관리                 \n");
+
+	printf("                 =================                \n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf("                 =================                \n");
+
+	printf("                    시간표 관리                   \n");
+
+	printf("                 =================                \n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf("                                                  \n");
+
+	printf(" KNU                                              \n");
+
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+
+
+	
+
+while (1) {
+
+		mouse();
+
+		if (mousescope(17, 33, 9, 11)) { // 학생 정보 관리 메뉴
+
+			menux = managernum1;
+
+			return;
+
+		}
+
+		if (mousescope(17, 33, 14, 16)) { // 시간표 정보 관리 메뉴
+
+			menux = managernum2;
+
+			return;
+
+		}
+
+	}
+
+}
 
 
 int mousescope(int x1, int x2, int y1, int y2)
@@ -24,3 +115,40 @@ int mousescope(int x1, int x2, int y1, int y2)
 	else return FALSE;
 
 }
+
+
+
+
+void manager_1()
+{
+	system("cls");
+
+	printf("manager_1");
+	int a;
+
+	while (1)
+	scanf("%d", &a);
+}
+
+void manager_2()
+{
+
+
+	system("cls");
+
+	printf("manager_2");
+	int a;
+
+	while (1)
+		scanf("%d", &a);
+
+
+
+}
+
+
+
+
+
+				if (x != NULL && y != NULL)  // 마우스 클릭 한번 받고 무한루프를 빠져나와서 검사
+					break;
