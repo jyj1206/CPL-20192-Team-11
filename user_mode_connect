@@ -668,7 +668,7 @@ void user_4() //3층
 	while (1) {
 
 		mouse();
-		/*
+		
 		if (mousescope(8, 17, 6, 10)) { // 351
 			pushmenu(usernum4);
 			num = 351;
@@ -702,7 +702,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 9, 9)) { // 355
+		if (mousescope(8, 18, 14, 17)) { // 355
 			pushmenu(usernum4);
 			num = 355;
 			menux = usernum1_1;
@@ -710,7 +710,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 7, 7)) { // 324
+		if (mousescope(48, 57, 14, 17)) { // 324
 			pushmenu(usernum4);
 			num = 324;
 			menux = usernum1_1;
@@ -718,7 +718,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 7, 7)) { // 334
+		if (mousescope(59, 68, 14, 17)) { // 334
 			pushmenu(usernum4);
 			num = 334;
 			menux = usernum1_1;
@@ -726,7 +726,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 7, 7)) { // 301
+		if (mousescope(8, 17, 18, 22)) { // 301
 			pushmenu(usernum4);
 			num = 301;
 			menux = usernum1_1;
@@ -734,7 +734,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 7, 7)) { // 309
+		if (mousescope(18, 28, 18, 22)) { // 309
 			pushmenu(usernum4);
 			num = 309;
 			menux = usernum1_1;
@@ -742,7 +742,7 @@ void user_4() //3층
 			return;
 
 		}
-		if (mousescope(19, 27, 7, 7)) { // 333
+		if (mousescope(58, 68, 18, 22)) { // 333
 			pushmenu(usernum4);
 			num = 333;
 			menux = usernum1_1;
@@ -750,7 +750,6 @@ void user_4() //3층
 			return;
 
 		}
-		*/
 		if (mousescope(74, 81, 28, 28)) { // back
 			menux = popmenu();
 
@@ -792,8 +791,8 @@ void user_5()
 	while (1) {
 
 		mouse();
-		/*
-		if (mousescope(8, 17, 6, 10)) { // 434
+		
+		if (mousescope(64, 75, 6, 9)) { // 434
 			pushmenu(usernum4);
 			num = 434;
 			menux = usernum1_1;
@@ -801,7 +800,7 @@ void user_5()
 			return;
 		}
 
-		if (mousescope(19, 27, 6, 10)) { // 407
+		if (mousescope(20, 30, 10, 14)) { // 407
 			pushmenu(usernum4);
 			num = 407;
 			menux = usernum1_1;
@@ -809,7 +808,7 @@ void user_5()
 			return;
 		}
 
-		if (mousescope(29, 36, 6, 10)) { // 421
+		if (mousescope(44, 53, 10, 14)) { // 421
 			pushmenu(usernum4);
 			num = 421;
 			menux = usernum1_1;
@@ -818,7 +817,7 @@ void user_5()
 
 		}
 
-		if (mousescope(39, 48, 6, 10)) { // 427
+		if (mousescope(55, 63, 10, 14)) { // 427
 			pushmenu(usernum4);
 			num = 427;
 			menux = usernum4;
@@ -826,7 +825,7 @@ void user_5()
 			return;
 
 		}
-		if (mousescope(19, 27, 9, 9)) { // 433
+		if (mousescope(65, 74, 10, 14)) { // 433
 			pushmenu(usernum4);
 			num = 433;
 			menux = usernum5;
@@ -834,7 +833,7 @@ void user_5()
 			return;
 
 		}
-		*/
+		
 		if (mousescope(74, 80, 20, 20)) { // back
 			menux = popmenu();
 
@@ -843,13 +842,17 @@ void user_5()
 		}
 		
 	}
+
 }
 void user_6()  //5층사용x
 {
 	printf("nothing");
+	return;
 }
 
 void user_1_1()
 {
+
 	printf(" 강의실 내부 좌석 ");
+
 }
