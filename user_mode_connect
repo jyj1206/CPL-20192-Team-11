@@ -1,0 +1,855 @@
+/*
+	[빈 강의실 예약 프로그램]
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include "mouse.h"
+#include "time.h"
+#include "login.h"
+#include "menumove.h"
+//매크로
+#define NAME_SIZE 20
+#define mainnum 0 
+#define managernum 1
+#define managernum1 2 // 학생 정보 관리
+#define managernum2 3 // 시관표 정보 관리
+#define managernum1_1 4 // 
+#define managernum1_2 5
+#define managernum1_3 6
+#define usernum 7
+#define usernum1 8 //지하1층
+#define usernum2 9
+#define usernum3 10
+#define usernum4 11
+#define usernum5 12
+#define usernum6 13 //5층
+#define usernum1_1 14 //강의실 내부
+
+
+//전역변수
+int i;
+int menux;
+int num = 0; //강의실 번호
+
+//함수 선언
+void title();
+void textcolor(int  color_number);
+void login();
+void mainmenu();
+void manager();
+void manager_1();
+void manager_2();
+void manager_1_1();
+void manager_1_2();
+void manager_1_3();
+void usermenu();
+void user_1(); //user_층선택
+void user_2();
+void user_3();
+void user_4();
+void user_5();
+void user_6();
+void user_1_1(); //user_강의실 내부
+
+//메인 함수 선언
+int main(void)
+{
+	while (1) {
+		system("cls");
+		switch (menux) {
+		case 0: title();
+			break;
+		case 1: manager();
+			break;
+		case 2: manager_1();
+			break;
+		case 3: manager_2();
+			break;
+		case 4: manager_1_1();
+			break;
+		case 5: manager_1_2();
+			break;
+		case 6: manager_1_3();
+			break;
+		case 7: usermenu();
+			break;
+		case 8: user_1(); //B1층
+			break;
+		case 9: user_2();
+			break;
+		case 10: user_3();
+			break;
+		case 11: user_4();
+			break;
+		case 12: user_5();
+			break;
+		case 13: user_6(); //6층
+			break;
+		case 14: user_1_1(); //강의실 내부
+		}
+	}
+}
+
+void title()
+{
+	menux = mainnum;
+	login();
+}
+
+void textcolor(int color_number)
+
+{
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
+
+} //텍스트 색 설정
+void login() {
+	char yn;
+	member();
+	stuInfo temp;
+	while (TRUE) {
+		mainmenu();
+		CursorView(1);
+		gotoxy(26, 11);
+		scanf("%d", &temp.id);
+		gotoxy(26, 12);
+		scanf("%d", &temp.key);
+		for (i = 0; i < peoplenum; i++) {
+			if (stuEqual(&temp, &stu[i])) {
+				pushmenu(menux); // 현재 메뉴 저장
+				gotoxy(20, 13);
+				printf("사용자 정보 : %s", stu[i].name);
+				gotoxy(26, 14);
+				printf("(y/n) : ");
+				scanf("%*c");
+				scanf("%c", &yn);
+				gotoxy(30, 14);
+				if (yn == 'n')
+					return;
+				if (temp.key == 1234) //관리자 키 or 사용자 키
+					menux = managernum;
+				else
+					menux = usernum;
+				return;
+			}
+		}
+	}
+}
+void mainmenu() {
+
+	CursorView(0);
+	textcolor(11);
+	system("mode con cols=50 lines=27"); //cols = 칸/행 (가로)  lines = 줄/열 (세로)
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("\n");
+	printf("\n");
+	printf("         ■                           ■          \n");
+	printf("         □  빈 강의실 예약 프로그램  □          \n");
+	printf("         ■                           ■          \n");
+	printf("         □          IT5호관          □          \n");
+	printf("         ■                           ■          \n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("                  학번 : l           l	 \n");
+	printf("                  key :  l           l    \n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("                                                  \n");
+	printf(" KNU                                              \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+
+	timeset();
+}
+
+void manager() {
+	
+	CursorView(0);
+		
+	system("mode con cols=50 lines=27");
+
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                  - 관리자 모드 -                 \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("           원하시는 작업을 선택해 주세요          \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                 =================                \n");
+	printf("                   학생 정보 관리                 \n");
+	printf("                 =================                \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                 =================                \n");
+	printf("                    시간표 관리                   \n");
+	printf("                 =================                \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf(" KNU                                              \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                  \n");
+	printf("                                    <<back>>      \n");
+
+	
+	while (1) {
+
+		mouse();
+
+		if (mousescope(17, 33, 9, 11)) { // 학생 정보 관리 메뉴
+			pushmenu(managernum);
+			menux = managernum1;
+
+			return;
+		}
+
+		if (mousescope(17, 33, 14, 16)) { // 시간표 정보 관리 메뉴
+			pushmenu(managernum);
+			menux = managernum2;
+
+			return;
+		}
+
+		if (mousescope(17, 33, 14, 16)) { // 뒤로가기
+			menux = popmenu();
+
+			return;
+		}
+
+
+
+	}
+
+
+
+}
+
+int mousescope(int x1, int x2, int y1, int y2)
+
+{
+
+	if (x >= x1 && x <= x2) {
+
+		if (y >= y1 && y <= y2) {
+
+			return TRUE;
+
+		}
+
+	}
+
+    return NULL;
+
+}
+
+void manager_1()
+{
+	system("mode con cols=50 lines=35");
+
+	textcolor(11);
+
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                  - 학생정보 관리 -               \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("           원하시는 작업을 선택해 주세요          \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                 =================                \n");
+	printf("                     학생 조회                    \n");
+	printf("                 =================                \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                 =================                \n");
+	printf("                     학생 추가                    \n");
+	printf("                 =================                \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                 =================                \n");
+	printf("                     학생 제거                    \n");
+	printf("                 =================                \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf("                                                  \n");
+	printf(" KNU                                              \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                  \n");
+	printf("                                       <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+
+		if (mousescope(17, 33, 9, 11)) { // 학생 정보 관리 메뉴
+
+			pushmenu(managernum);
+			menux = managernum1_1;
+
+			return;
+
+		}
+
+		if (mousescope(17, 33, 14, 16)) { // 시간표 정보 관리 메뉴
+
+			pushmenu(managernum);
+			menux = managernum1_2;
+
+			return;
+
+		}
+
+		if (mousescope(17, 33, 19, 21)) { // 학생 정보 제거
+
+			pushmenu(managernum);
+
+			menux = managernum1_3;
+
+			return;
+
+		}
+
+		if (mousescope(39, 46, 28, 28)) { // 뒤로가기
+
+			menux = popmenu();
+
+			return;
+
+		}
+
+	}
+
+}
+
+void manager_2()
+{
+
+
+	system("cls");
+
+	printf("manager_2");
+	int a;
+
+	while (1)
+		scanf("%d", &a);
+
+
+
+}
+void manager_1_1()
+{
+	printf("manager_2");
+	int a;
+
+	while (1)
+		scanf("%d", &a);
+
+
+}
+void manager_1_2()
+{
+
+	printf("manager_2");
+	int a;
+
+	while (1)
+		scanf("%d", &a);
+
+
+}
+void manager_1_3()
+{
+
+	printf("manager_2");
+	int a;
+
+	while (1)
+		scanf("%d", &a);
+
+
+}
+void usermenu()
+{
+	system("mode con cols=50 lines=30");
+
+	textcolor(11);
+
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("\n");
+	printf("\n");
+	printf("            원하는 층을 선택해 주세요           \n");
+	printf("\n");
+	printf("\n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  5   ■                \n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  4   ■                \n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  3   ■                \n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  2   ■                \n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  1   ■                \n");
+	printf("                   □□□□□                \n");
+	printf("                   ■  B1  ■                \n");
+	printf("                   □□□□□                \n");
+	printf("\n");
+	printf("\n");
+	printf(" KNU                                              \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                  \n");
+	printf("                                       <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+
+		if (mousescope(19, 27, 17, 17)) { // B1층
+			pushmenu(usernum);
+			menux = usernum1;
+
+			return;
+		}
+
+		if (mousescope(19, 27, 15, 15)) { // 1층
+			pushmenu(usernum);
+			menux = usernum2;
+
+			return;
+		}
+
+		if (mousescope(19, 27, 13, 13)) { // 2층
+			pushmenu(usernum);
+			menux = usernum3;
+
+			return;
+
+		}
+
+		if (mousescope(19, 27, 11, 11)) { // 3층
+			pushmenu(usernum);
+			menux = usernum4;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 9, 9)) { // 4층
+			pushmenu(usernum);
+			menux = usernum5;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 5층
+			pushmenu(usernum);
+			menux = usernum6;
+			
+			return;
+
+		}
+		if (mousescope(39, 46, 24, 24)) { // back
+			menux = popmenu();
+
+			return;
+
+		}
+	}
+
+
+}
+
+void user_1() //B1층
+{
+	system("mode con cols=85 lines=26");
+
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        원하는 강의실을 선택해 주세요  (B1층)                                        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        ■■■■■■■■■■■                                                      \n");
+	printf("        ■        ■        ■                                                      \n");
+	printf("        ■  B101  ■  B102  ■                                                      \n");
+	printf("        ■        ■        ■                                                      \n");
+	printf("        ■■■■■■■■■■■                                                      \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf(" KNU                                                                                \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n"); 
+	printf(" \n                                                                       <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+		
+		if (mousescope(8, 17, 6, 10)) { //B101
+			pushmenu(usernum1);
+			num = -101;
+			menux = usernum1_1;
+			
+			return;
+		}
+
+		if (mousescope(20, 28, 6, 10)) { //B102
+			pushmenu(usernum1);
+			num = -102;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(71, 78, 16, 16)) { //back
+			menux = popmenu();
+
+			return;
+		}
+		
+	}
+
+}
+void user_2() //1층
+{
+	system("mode con cols=85 lines=32");
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        원하는 강의실을 선택해 주세요  (1층)                                        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        ■■■■■■                                                                \n");
+	printf("        ■        ■                                                                \n");
+	printf("        ■   101  ■                                                                \n");
+	printf("        ■        ■                                                                \n");
+	printf("        ■■■■■■                                                                \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf(" KNU                                                                                \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                     \n");
+	printf("                                                                          <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+		
+		if (mousescope(8, 18, 6, 10)) { //101
+			pushmenu(usernum2);
+			num = 101;
+			menux = usernum1_1;
+
+			return;
+		}
+
+
+		if (mousescope(74, 81, 16, 16)) { //back
+			menux = popmenu();
+
+			return;
+		}
+		
+	}
+
+
+}
+void user_3() //2층
+{
+	system("mode con cols=85 lines=32");
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        원하는 강의실을 선택해 주세요  (2층)                                        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        ■■■■■■■■■■■■■■■■□□□□□                                  \n");
+	printf("        ■        ■        ■        ■        □                                  \n");
+	printf("        ■   251  ■   248  ■   245  ■   242  □                                  \n");
+	printf("        ■        ■        ■        ■        □                                  \n");
+	printf("        ■■■■■■■■■■■■■■■■□□□□□                                  \n");
+	printf("        □   254  □                  □                                            \n");
+	printf("        □□□□□□                  □                                            \n");
+	printf("        □   255  □                  □                                            \n");
+	printf("        □□□□□□                  □□□□□□□□□□□□□□□□              \n");
+	printf("        □        □                  □        □        □        □              \n");
+	printf("        □   256  □                  □   222  □   224  □   234  □              \n");
+	printf("        □        □                  □        □        □        □              \n");
+	printf("        □□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□              \n");
+	printf("        □        □        □        □        □        □        □              \n");
+	printf("        □   201  □   207  □   213  □   219  □   225  □   233  □              \n");
+	printf("        □        □        □        □        □        □        □              \n");
+	printf("        □□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□              \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf(" KNU                                                                                \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                     \n");
+	printf("                                                                          <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+		
+		if (mousescope(8, 17, 6, 10)) { //251
+			pushmenu(usernum3);
+			num = 251;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(19, 28, 6, 10)) { //248
+			pushmenu(usernum3);
+			num = 248;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(29, 39, 6, 10)) { //245
+			pushmenu(usernum3);
+			num = 245;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(74, 81, 28, 28)) { //back
+			menux = popmenu();
+
+			return;
+		}
+		
+	}
+}
+void user_4() //3층
+{
+	system("mode con cols=85 lines=32");
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        원하는 강의실을 선택해 주세요  (3층)                                        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        ■■■■■■■■■■■■■■■■■■■■■                                  \n");
+	printf("        ■        ■        ■        ■        ■                                  \n");
+	printf("        ■   351  ■   348  ■   345  ■   342  ■                                  \n");
+	printf("        ■        ■        ■        ■        ■                                  \n");
+	printf("        ■■■■■■■■■■■■■■■■■■■■■                                  \n");
+	printf("        □        □                  □                                            \n");
+	printf("        □   354  □                  □                                            \n");
+	printf("        □        □                  □                                            \n");
+	printf("        ■■■■■■                  □□□□□■■■■■■■■■■■              \n");
+	printf("        ■        ■                  □        ■        ■        ■              \n");
+	printf("        ■   355  ■                  □   322  ■   324  ■   334  ■              \n");
+	printf("        ■        ■                  □        ■        ■        ■              \n");
+	printf("        ■■■■■■■■■■■□□□□□□□□□■■■■■■■■■■■              \n");
+	printf("        ■        ■        ■        □        □        ■        ■              \n");
+	printf("        ■   301  ■   309  ■   317  □   323  □   325  ■   333  ■              \n");
+	printf("        ■        ■        ■        □        □        ■        ■              \n");
+	printf("        ■■■■■■■■■■■□□□□□□□□□□□□□□■■■■■■              \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf(" KNU                                                                                \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                     \n");
+	printf("                                                                          <<back>>   \n");
+	
+	while (1) {
+
+		mouse();
+		/*
+		if (mousescope(8, 17, 6, 10)) { // 351
+			pushmenu(usernum4);
+			num = 351;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(19, 27, 6, 10)) { //348
+			pushmenu(usernum4);
+			num = 348;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(29, 36, 6, 10)) { // 345
+			pushmenu(usernum4);
+			num = 345;
+			menux = usernum1_1;
+
+			return;
+
+		}
+
+		if (mousescope(39, 48, 6, 10)) { // 342
+			pushmenu(usernum4);
+			num = 342;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 9, 9)) { // 355
+			pushmenu(usernum4);
+			num = 355;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 324
+			pushmenu(usernum4);
+			num = 324;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 334
+			pushmenu(usernum4);
+			num = 334;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 301
+			pushmenu(usernum4);
+			num = 301;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 309
+			pushmenu(usernum4);
+			num = 309;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 7, 7)) { // 333
+			pushmenu(usernum4);
+			num = 333;
+			menux = usernum1_1;
+
+			return;
+
+		}
+		*/
+		if (mousescope(74, 81, 28, 28)) { // back
+			menux = popmenu();
+
+			return;
+
+		}
+		
+	}
+
+
+
+}
+void user_5()
+{
+	system("mode con cols=85 lines=26");
+	textcolor(11);
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        원하는 강의실을 선택해 주세요  (4층)                                        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf("        □□□□□□                    □□□□□□□□□□□□■■■■■■        \n");
+	printf("        □        □                    □ 4□        □4 □ 4  ■        ■        \n");
+	printf("        □   402  □                    □ 2□   422  □2 □ 3  ■   434  ■        \n");
+	printf("        □        □                    □ 0□        □8 □ 2  ■        ■        \n");
+	printf("        □□□□□□■■■■■■□□□□□□■■■■■■■■■■■■■■■■        \n");
+	printf("        □ 4□ 4□ 4■        ■        □ 4■        ■        ■        ■        \n");
+	printf("        □ 0□ 0□ 0■   407  ■   413  □ 1■   421  ■   427  ■   433  ■        \n");
+	printf("        □ 1□ 3□ 5■        ■        □ 9■        ■        ■        ■        \n");
+	printf("        □□□□□□■■■■■■□□□□□□■■■■■■■■■■■■■■■■        \n");
+	printf("                                                                                    \n");
+	printf("                                                                                    \n");
+	printf(" KNU                                                                                \n");
+	printf("▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤\n");
+	printf("                                                                                     \n");
+	printf("                                                                          <<back>>   \n");
+
+	while (1) {
+
+		mouse();
+		/*
+		if (mousescope(8, 17, 6, 10)) { // 434
+			pushmenu(usernum4);
+			num = 434;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(19, 27, 6, 10)) { // 407
+			pushmenu(usernum4);
+			num = 407;
+			menux = usernum1_1;
+
+			return;
+		}
+
+		if (mousescope(29, 36, 6, 10)) { // 421
+			pushmenu(usernum4);
+			num = 421;
+			menux = usernum1_1;
+
+			return;
+
+		}
+
+		if (mousescope(39, 48, 6, 10)) { // 427
+			pushmenu(usernum4);
+			num = 427;
+			menux = usernum4;
+
+			return;
+
+		}
+		if (mousescope(19, 27, 9, 9)) { // 433
+			pushmenu(usernum4);
+			num = 433;
+			menux = usernum5;
+
+			return;
+
+		}
+		*/
+		if (mousescope(74, 80, 20, 20)) { // back
+			menux = popmenu();
+
+			return;
+
+		}
+		
+	}
+}
+void user_6()  //5층사용x
+{
+	printf("nothing");
+}
+
+void user_1_1()
+{
+	printf(" 강의실 내부 좌석 ");
+}
